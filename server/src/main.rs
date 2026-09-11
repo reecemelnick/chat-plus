@@ -18,10 +18,12 @@ fn create_server_socket() -> std::io::Result<()> {
 
 fn handle_client(mut stream: TcpStream) {
     println!("Handling client");
-    let mut buffer = [0; 10];
-    stream.read(&mut buffer);
 
-    if let Ok(text) = std::str::from_utf8(&buffer) {
-        println!("{}", text);
+    loop {
+        let mut buffer = [0; 10];
+        stream.read(&mut buffer);
+        if let Ok(text) = std::str::from_utf8(&buffer) {
+            println!("{}", text);
+        }
     }
 }
