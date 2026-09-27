@@ -1,6 +1,8 @@
 use std::net::TcpStream;
 use std::io::Write;
 use std::io;
+mod register;
+mod login;
 
 fn main() {
 
@@ -39,11 +41,12 @@ fn start_menu(stream: &mut TcpStream) {
         match menu_option[..].trim() {
             "1" => {
                 println!("Loging in...");
+                login::login(stream);
                 break;
             }
             "2" => {
                 println!("Register user...");
-                register(stream);
+                register::register(stream);
                 break;
             }
             _ => {
@@ -51,43 +54,4 @@ fn start_menu(stream: &mut TcpStream) {
             }
         }
     }
-}
-
-struct RegisterPayload {
-    feature_id: u8,
-    user_id: u16,
-    payload_length: u16,
-    payload: String,
-}
-
-fn register(stream: &mut TcpStream) {
-    println!("Enter your username:");
-    let mut username = String::new();
-    io::stdin().read_line(&mut username).unwrap();
-
-    println!("Enter your password:");
-    let mut password = String::new();
-    io::stdin().read_line(&mut password).unwrap();
-
-    let new_reg = RegisterPayload {
-        feature_id: 1,
-        user_id: 1,
-        payload_length: 5,
-        payload: String::from("hello"),
-    };
-
-    let byte_stream = serialize_register(new_reg);
-    let _ = stream.write(&byte_stream);
-
-}
-
-fn serialize_register(reg: RegisterPayload) -> Vec<u8> {
-    let mut byte_stream = Vec::new();
-
-    byte_stream.push(reg.feature_id);
-    byte_stream.extend_from_slice(&reg.user_id.to_be_bytes());
-    byte_stream.extend_from_slice(&reg.payload_length.to_be_bytes());
-    byte_stream.extend_from_slice(&reg.payload.as_bytes());
-
-    byte_stream
 }

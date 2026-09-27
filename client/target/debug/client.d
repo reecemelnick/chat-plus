@@ -1,1 +1,1 @@
-C:\Users\reece\Desktop\rust\chat_plus\chat-plus\client\target\debug\client.exe: C:\Users\reece\Desktop\rust\chat_plus\chat-plus\client\src\main.rs
+C:\Users\reece\Desktop\rust\chat_plus\chat-plus\client\target\debug\client.exe: C:\Users\reece\Desktop\rust\chat_plus\chat-plus\client\src\login.rs C:\Users\reece\Desktop\rust\chat_plus\chat-plus\client\src\main.rs C:\Users\reece\Desktop\rust\chat_plus\chat-plus\client\src\register.rs
