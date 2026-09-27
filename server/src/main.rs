@@ -1,6 +1,5 @@
 use std::net::{TcpListener, TcpStream};
 use std::io::Read;
-use std::fmt::Display;
 use std::os::windows::io::AsRawSocket;
 use std::thread;
 
@@ -8,9 +7,10 @@ use std::thread;
 // (Get-Process -Id <PID>).Threads.Count
 
 fn main() {
-    let pid = std::process::id();
+    let pid = std::process::id(); // get server pid for connection monitoring
     println!("The current process ID is: {pid}");
-    let _ = create_server_socket();
+
+    let _socket_creation_res = create_server_socket();
 }
 
 fn create_server_socket() -> std::io::Result<()> {
@@ -24,7 +24,7 @@ fn create_server_socket() -> std::io::Result<()> {
                 });
             }
             Err(e) => {
-                println!("Unable to connect client...")
+                println!("Unable to connect client... {}", e)
             }
         }
     }
@@ -44,6 +44,7 @@ fn handle_client(mut stream: TcpStream) {
         };
 
         if bytes_read <= 0 {
+            println!("Failed to read. Killing");
             break;
         }
 
