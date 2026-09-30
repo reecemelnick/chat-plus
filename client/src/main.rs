@@ -10,7 +10,7 @@ fn main() {
 }
 
 fn make_server_connection() {
-    if let Ok(mut stream) = TcpStream::connect("127.0.0.1:80") {
+    if let Ok(mut stream) = TcpStream::connect("127.0.0.1:9000") {
         start_menu(&mut stream);
         chat_loop(stream);
     } else {

@@ -19,8 +19,11 @@ pub fn register(stream: &mut TcpStream) {
     let mut password = String::new();
     io::stdin().read_line(&mut password).unwrap();
 
+    username = username.trim().to_string();
+    password = password.trim().to_string();
+
     let new_reg = RegisterPayload {
-        feature_id: 1,
+        feature_id: 2,
         username_len: username.len() as u16,
         username: username,
         password_len: password.len() as u16,
