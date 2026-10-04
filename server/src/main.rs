@@ -2,6 +2,7 @@ use std::net::{TcpListener, TcpStream};
 use std::io::Read;
 use std::thread;
 mod login;
+mod register;
 mod database_manager;
 
 // netstat -ano | findstr <PID>
@@ -23,8 +24,9 @@ fn create_server_socket() -> std::io::Result<()> {
             match stream {
                 Ok(mut stream) => {
                     thread::spawn(move || {
-                        let packet_identified =  intitial_read(&mut stream);
-                        if packet_identified {
+                        let new_client =  intitial_read(&mut stream);
+                        if new_client {
+                            println!("New client established...");
                             // handle_client(stream);   
                         }
                     });
@@ -50,12 +52,13 @@ fn intitial_read(stream: &mut TcpStream) -> bool {
         }
 
         match buffer[0] {
-            1 => {
+            3 => {
                 println!("Login");
-                login::login_user(&buffer)
+                login::login_user(&buffer);
             }
             2 => {
                 println!("Register");
+                register::register_user(&buffer);
             }
             _ => {
                 println!("UNKNOWN PACKET...");

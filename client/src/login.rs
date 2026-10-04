@@ -23,7 +23,7 @@ pub fn login(stream: &mut TcpStream) {
     password = password.trim().to_string();
 
     let login_data = LoginPayload {
-        feature_id: 1,
+        feature_id: 3,
         username_len: username.len() as u16,
         username: username,
         password_len: password.len() as u16,

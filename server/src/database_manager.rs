@@ -13,4 +13,16 @@ pub fn init_db() {
     ).unwrap();
 }
 
-// TO-DO change to RUSQLITE??
+// pub fn register_user(user: &Register) {
+//     let conn = Connection::open("data.db").unwrap();
+
+//     conn.execute(
+//         "SELECT MAX(id) FROM users"
+//     ).unwrap();
+// }
+
+// fn get_current_max_id(conn: &Connection) {
+//     conn.execute(
+//         "SELECT MAX(id) FROM users"
+//     ).unwrap();
+// }
