@@ -5,7 +5,6 @@ mod register;
 mod login;
 
 fn main() {
-
     make_server_connection()
 }
 
@@ -18,6 +17,7 @@ fn make_server_connection() {
     }
 }
 
+// evalutate when ready to implement
 fn chat_loop(mut stream: TcpStream) {
     let mut input_string = String::new();
     while input_string.trim() != "x" {
