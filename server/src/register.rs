@@ -1,11 +1,26 @@
+use crate::database_manager;
+
 pub struct RegisterUser {
     username: String,
     password: String,
 }
 
+impl RegisterUser {
+    pub fn get_username(&self) -> String {
+        return self.username.clone();
+    }
+
+    pub fn get_password(&self) -> String {
+        return self.password.clone();
+    }
+}
+
 pub fn register_user(buffer: &[u8]) {
 
     let new_user = deserialize_register(buffer);
+
+    database_manager::register_user(&new_user);
+
 }
 
 fn deserialize_register(buffer: &[u8]) -> RegisterUser {

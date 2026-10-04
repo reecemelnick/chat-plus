@@ -24,7 +24,7 @@ fn create_server_socket() -> std::io::Result<()> {
             match stream {
                 Ok(mut stream) => {
                     thread::spawn(move || {
-                        let new_client =  intitial_read(&mut stream);
+                        let new_client = intitial_read(&mut stream);
                         if new_client {
                             println!("New client established...");
                             // handle_client(stream);   
