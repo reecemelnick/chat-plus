@@ -19,6 +19,9 @@ pub fn login(stream: &mut TcpStream) {
     let mut password = String::new();
     io::stdin().read_line(&mut password).unwrap();
 
+    username = username.trim().to_string();
+    password = password.trim().to_string();
+
     let login_data = LoginPayload {
         feature_id: 1,
         username_len: username.len() as u16,

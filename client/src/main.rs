@@ -5,12 +5,11 @@ mod register;
 mod login;
 
 fn main() {
-
     make_server_connection()
 }
 
 fn make_server_connection() {
-    if let Ok(mut stream) = TcpStream::connect("127.0.0.1:80") {
+    if let Ok(mut stream) = TcpStream::connect("127.0.0.1:9000") {
         start_menu(&mut stream);
         chat_loop(stream);
     } else {
@@ -18,6 +17,7 @@ fn make_server_connection() {
     }
 }
 
+// evalutate when ready to implement
 fn chat_loop(mut stream: TcpStream) {
     let mut input_string = String::new();
     while input_string.trim() != "x" {
