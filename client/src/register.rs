@@ -32,6 +32,7 @@ pub fn register(stream: &mut TcpStream) {
 
 }
 
+
 pub fn serialize_register(reg: RegisterPayload) -> Vec<u8> {
     let mut byte_stream = Vec::new();
 
