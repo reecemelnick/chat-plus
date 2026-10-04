@@ -1,6 +1,8 @@
 use std::net::{TcpListener, TcpStream};
 use std::io::Read;
 use std::thread;
+mod login;
+mod database_manager;
 
 // netstat -ano | findstr <PID>
 // (Get-Process -Id <PID>).Threads.Count
@@ -8,6 +10,8 @@ use std::thread;
 fn main() {
     let pid = std::process::id(); // get server pid for connection monitoring
     println!("The current process ID is: {pid}");
+
+    database_manager::init_db();
 
     let _socket_creation_res = create_server_socket();
 }
@@ -36,27 +40,8 @@ fn create_server_socket() -> std::io::Result<()> {
     Ok(())
 } 
 
-fn login_user(buffer: &[u8]) {
-
-    let username = String::new();
-    let password = String::new();
-
-    let username_length_bytes: [u8; 2] = buffer[1..3].try_into().expect("Slice was not 2 bytes long...");
-    let username_length = u16::from_be_bytes(username_length_bytes);
-
-    let password_length_bytes: [u8; 2] = buffer[(3+username_length) as usize..(3+username_length+2) as usize].try_into().expect("Slice was not 2 bytes long...");
-    let password_length = u16::from_be_bytes(password_length_bytes);
-
-    println!("userlen {}", username_length);
-    println!("passwordlen {}", password_length);
-
-    for byte in buffer {
-        println!("{}", byte);
-    }
-}
-
 fn intitial_read(stream: &mut TcpStream) -> bool {
-    let mut buffer = [0; 512];
+    let mut buffer = [0; 128];
     if let Ok(bytes_read) = stream.read(&mut buffer) {
 
         if bytes_read <= 0 {
@@ -67,7 +52,7 @@ fn intitial_read(stream: &mut TcpStream) -> bool {
         match buffer[0] {
             1 => {
                 println!("Login");
-                login_user(&buffer)
+                login::login_user(&buffer)
             }
             2 => {
                 println!("Register");

@@ -1,1 +1,1 @@
-/Users/reecemelnick/Desktop/projects/chat-plus/server/target/debug/server: /Users/reecemelnick/Desktop/projects/chat-plus/server/src/main.rs
+C:\Users\reece\Desktop\rust\chat_plus\chat-plus\server\target\debug\server.exe: C:\Users\reece\Desktop\rust\chat_plus\chat-plus\server\src\database_manager.rs C:\Users\reece\Desktop\rust\chat_plus\chat-plus\server\src\login.rs C:\Users\reece\Desktop\rust\chat_plus\chat-plus\server\src\main.rs
